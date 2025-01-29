@@ -26,6 +26,16 @@
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
         };
+
+        hs: hyper_space {
+            compatible = "zmk,behavior-hold-tap";
+            label = "HYPER_SPACE";
+            #binding-cells = <2>;
+            tapping-term-ms = <500>;
+            quick-tap-ms = <200>;
+            flavor = "hold-preferred";
+            bindings = <&kp>, <&kp>;
+        };
     };
 
     keymap {
@@ -40,7 +50,7 @@
                 // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                      &mt LSHFT ESC &kp Z         &kp X         &kp C         &kp D         &kp V             &kp K         &kp H         &kp COMMA     &kp DOT       &kp FSLH      &kp RSHFT
                 // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                                                              &kp LGUI      &mo LOWER     &mt LC(LS(LA(LGUI))) SPACE  &kp RET       &mo RAISE     &kp RALT
+                                                              &kp LGUI      &mo LOWER     &hs LC(LS(LA(LGUI))) SPACE  &kp RET       &mo RAISE     &kp RALT
                 //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
             >;
         };
