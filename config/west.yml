@@ -3,14 +3,14 @@ manifest:
     - name: zmkfirmware
       url-base: https://github.com/zmkfirmware
     - name: whoop-t
-      url-base: https://github.com/whoop-t
+      url-base: https://github.com/dsifry
   projects:
     - name: zmk
       remote: zmkfirmware
       revision: main
       import: app/west.yml
-    - name: nice-one-punch-ok
-      remote: whoop-t
+    - name: nice-view-mod
+      remote: dsifry
       revision: main
   self:
     path: config
