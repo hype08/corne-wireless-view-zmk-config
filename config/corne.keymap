@@ -9,37 +9,42 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
 
-// Combo key positions (0-indexed per layer)
-#define K_Q      0
-#define K_W      1
-#define K_F      2
-#define K_P      3
-#define K_B      4
-#define K_J      5
-#define K_L      6
-#define K_U      7
-#define K_Y      8
-#define K_SEMI   9
-#define K_A      11
-#define K_R      12
-#define K_S      13
-#define K_T      14
-#define K_G      15
-#define K_M      16
-#define K_N      17
-#define K_E      18
-#define K_I      19
-#define K_O      20
-#define K_Z      22
-#define K_X      23
-#define K_C      24
-#define K_D      25
-#define K_V      26
-#define K_K      27
-#define K_H      28
-#define K_COMMA  29
-#define K_DOT    30
-#define K_FSLH   31
+// Combo key positions (0-indexed per row)
+// Row 1: TAB(0) Q(1) W(2) F(3) P(4) B(5) | J(6) L(7) U(8) Y(9) SEMI(10) BSPC(11)
+#define K_Q      1
+#define K_W      2
+#define K_F      3
+#define K_P      4
+#define K_B      5
+#define K_J      6
+#define K_L      7
+#define K_U      8
+#define K_Y      9
+#define K_SEMI   10
+
+// Row 2: LCTRL(12) A(13) R(14) S(15) T(16) G(17) | M(18) N(19) E(20) I(21) O(22) SQT(23)
+#define K_A      13
+#define K_R      14
+#define K_S      15
+#define K_T      16
+#define K_G      17
+#define K_M      18
+#define K_N      19
+#define K_E      20
+#define K_I      21
+#define K_O      22
+
+// Row 3: LSHT+ESC(24) Z(25) X(26) C(27) D(28) V(29) | K(30) H(31) ,(32) .(33) /(34) RSHT(35)
+#define K_Z      25
+#define K_X      26
+#define K_C      27
+#define K_D      28
+#define K_V      29
+#define K_K      30
+#define K_H      31
+#define K_COMMA  32
+#define K_DOT    33
+#define K_FSLH   34
 
 // Layer definitions
 #define BASE 0
