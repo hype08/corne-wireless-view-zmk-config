@@ -9,6 +9,38 @@
 #include <dt-bindings/zmk/bt.h>
 #include <dt-bindings/zmk/outputs.h>
 
+// Combo key positions (0-indexed per layer)
+#define K_Q      0
+#define K_W      1
+#define K_F      2
+#define K_P      3
+#define K_B      4
+#define K_J      5
+#define K_L      6
+#define K_U      7
+#define K_Y      8
+#define K_SEMI   9
+#define K_A      11
+#define K_R      12
+#define K_S      13
+#define K_T      14
+#define K_G      15
+#define K_M      16
+#define K_N      17
+#define K_E      18
+#define K_I      19
+#define K_O      20
+#define K_Z      22
+#define K_X      23
+#define K_C      24
+#define K_D      25
+#define K_V      26
+#define K_K      27
+#define K_H      28
+#define K_COMMA  29
+#define K_DOT    30
+#define K_FSLH   31
+
 // Layer definitions
 #define BASE 0
 #define LOWER 1
@@ -35,6 +67,40 @@
             quick-tap-ms = <200>;
             flavor = "tap-preferred";
             bindings = <&kp>, <&kp>;
+        };
+    };
+
+    // Safety combos - require multiple keys pressed simultaneously
+    // These combos work on ANY layer, making them impossible to accidentally trigger
+    combos {
+        compatible = "zmk,combos";
+
+        // BT_CLR: Hold Q + W + F (left hand top row) simultaneously
+        combo_bt_clear {
+            timeout-ms = <100>;
+            bindings = <&bt BT_CLR>;
+            key-positions = <K_Q K_W K_F>;
+        };
+
+        // BT_CLR_ALL: Hold J + L + U (right hand top row) simultaneously
+        combo_bt_clear_all {
+            timeout-ms = <100>;
+            bindings = <&bt BT_CLR_ALL>;
+            key-positions = <K_J K_L K_U>;
+        };
+
+        // BT_SEL 0: Hold Z + X + C (left hand bottom row) simultaneously
+        combo_bt_sel_0 {
+            timeout-ms = <100>;
+            bindings = <&bt BT_SEL 0>;
+            key-positions = <K_Z K_X K_C>;
+        };
+
+        // BT_SEL 1: Hold K + H + COMMA (right hand bottom row) simultaneously
+        combo_bt_sel_1 {
+            timeout-ms = <100>;
+            bindings = <&bt BT_SEL 1>;
+            key-positions = <K_K K_H K_COMMA>;
         };
     };
 
@@ -98,10 +164,12 @@
                 // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                      &none         &none         &none         &none         &none         &none             &none         &none         &none         &none         &none         &none
                 // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                     &bootloader   &sys_reset    &bt BT_SEL 0  &bt BT_SEL 1  &bt BT_SEL 2  &none             &bt BT_CLR_ALL &bt BT_SEL 3  &bt BT_SEL 4  &bt BT_CLR    &sys_reset    &bootloader
+                     &bootloader   &sys_reset    &bt BT_SEL 2  &none         &none         &none             &none         &bt BT_SEL 3  &bt BT_SEL 4  &none         &sys_reset    &bootloader
                 // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                                                               &trans        &trans        &trans            &trans        &trans        &trans
                 //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
+                // NOTE: BT_CLR and BT_CLR_ALL moved to 3-key combos for safety
+                //       BT_SEL 0 and BT_SEL 1 moved to 3-key combos for safety
             >;
         };
     };
