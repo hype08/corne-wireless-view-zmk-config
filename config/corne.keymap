@@ -107,6 +107,15 @@
             bindings = <&bt BT_SEL 1>;
             key-positions = <K_K K_H K_COMMA>;
         };
+
+        // Bootloader: Hold Q + W + F + P (left hand top row) simultaneously.
+        // 4-key combo because the left physical bootloader button is broken
+        // and this is the only software path into DFU mode to reflash.
+        combo_bootloader {
+            timeout-ms = <100>;
+            bindings = <&bootloader>;
+            key-positions = <K_Q K_W K_F K_P>;
+        };
     };
 
     conditional_layers {
@@ -169,12 +178,16 @@
                 // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                      &none         &none         &none         &none         &none         &none             &none         &none         &none         &none         &none         &none
                 // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
-                     &bootloader   &sys_reset    &bt BT_SEL 2  &none         &none         &none             &none         &bt BT_SEL 3  &bt BT_SEL 4  &none         &sys_reset    &bootloader
+                     &none         &none         &none         &none         &none         &none             &none         &none         &none         &none         &none         &none
                 // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                                                               &trans        &trans        &trans            &trans        &trans        &trans
                 //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
-                // NOTE: BT_CLR and BT_CLR_ALL moved to 3-key combos for safety
-                //       BT_SEL 0 and BT_SEL 1 moved to 3-key combos for safety
+                // NOTE: every destructive binding (BT_CLR, BT_CLR_ALL,
+                //       BT_SEL 0-1, &bootloader) is now combo-only so it
+                //       cannot fire from a single-thumb LOWER+RAISE slip
+                //       during normal typing. BT_SEL 2-4 and &sys_reset
+                //       were dropped entirely (only 2 paired devices used;
+                //       sys_reset replaced by battery unplug / DFU reflash).
             >;
         };
     };
