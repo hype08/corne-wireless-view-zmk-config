@@ -11,6 +11,7 @@
 
 // Combo key positions (0-indexed per row)
 // Row 1: TAB(0) Q(1) W(2) F(3) P(4) B(5) | J(6) L(7) U(8) Y(9) SEMI(10) BSPC(11)
+#define K_TAB    0
 #define K_Q      1
 #define K_W      2
 #define K_F      3
@@ -21,6 +22,7 @@
 #define K_U      8
 #define K_Y      9
 #define K_SEMI   10
+#define K_BSPC   11
 
 // Row 2: LCTRL(12) A(13) R(14) S(15) T(16) G(17) | M(18) N(19) E(20) I(21) O(22) SQT(23)
 #define K_A      13
@@ -35,6 +37,7 @@
 #define K_O      22
 
 // Row 3: LSHT+ESC(24) Z(25) X(26) C(27) D(28) V(29) | K(30) H(31) ,(32) .(33) /(34) RSHT(35)
+#define K_LSHT_ESC 24
 #define K_Z      25
 #define K_X      26
 #define K_C      27
@@ -45,12 +48,14 @@
 #define K_COMMA  32
 #define K_DOT    33
 #define K_FSLH   34
+#define K_RSHT   35
 
 // Layer definitions
 #define BASE 0
-#define LOWER 1
-#define RAISE 2
-#define ADJUST 3
+#define GRAPHITE 1
+#define LOWER 2
+#define RAISE 3
+#define ADJUST 4
 
 / {
     behaviors {
@@ -142,6 +147,13 @@
             bindings = <&bootloader>;
             key-positions = <K_Q K_W K_F K_P>;
         };
+
+        // Toggle Graphite with the four outer matrix keys: Tab, Backspace, and both Shifts.
+        combo_graphite_toggle {
+            timeout-ms = <100>;
+            bindings = <&tog GRAPHITE>;
+            key-positions = <K_TAB K_BSPC K_LSHT_ESC K_RSHT>;
+        };
     };
 
     conditional_layers {
@@ -163,6 +175,20 @@
                      &kp LCTRL    &hm LCTRL A   &hm LALT R    &hm LGUI S    &hm LSHFT T   &kp G             &kp M         &hm RSHFT N   &hm RGUI E    &hm RALT I    &hm RCTRL O   &kp SQT
                 // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                      &mt LSHFT ESC &kp Z         &kp X         &kp C         &kp D         &kp V             &kp K         &kp H         &kp COMMA     &kp DOT       &kp FSLH      &kp RSHFT
+                // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+                                                              &kp LGUI      &lower_marker &hs LC(LS(LA(LGUI))) SPACE  &kp RET       &raise_marker &kp RALT
+                //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
+            >;
+        };
+
+        graphite_layer {
+            bindings = <
+                // ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮   ╭─────────────┬─────────────┬─────────────┬─────────────┬─────────────┬─────────────╮
+                     &kp TAB      &kp B         &kp L         &kp D         &kp W         &kp Z             &kp F         &kp O         &kp U         &kp J         &kp SEMI      &kp BSPC
+                // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+                     &kp LCTRL    &hm LCTRL N   &hm LALT R    &hm LGUI T    &hm LSHFT S   &kp G             &kp Y         &hm RSHFT H   &hm RGUI A    &hm RALT E    &hm RCTRL I   &kp COMMA
+                // ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
+                     &mt LSHFT ESC &kp Q         &kp X         &kp M         &kp C         &kp V             &kp K         &kp P         &kp DOT       &kp MINUS     &kp FSLH      &kp RSHFT
                 // ╰─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤   ├─────────────┼─────────────┼─────────────┼─────────────┼─────────────┼─────────────┤
                                                               &kp LGUI      &lower_marker &hs LC(LS(LA(LGUI))) SPACE  &kp RET       &raise_marker &kp RALT
                 //                                           ╰─────────────┴─────────────┴─────────────╯   ╰─────────────┴─────────────┴─────────────╯
